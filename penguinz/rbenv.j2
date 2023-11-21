@@ -1,0 +1,7 @@
+#!/bin/bash
+export PATH="{{ rbenv.dir }}/bin:$PATH"
+rbenv install {{ rbenv.version}}
+source {{ rbenv.dir }}
+rbenv global {{ rbenv.version}}
+gem install bundler
+bundle install
