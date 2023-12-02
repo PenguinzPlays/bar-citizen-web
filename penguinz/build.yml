@@ -37,7 +37,7 @@
         - /etc/apt/keyrings/
     - name: Setup user bashrc
       ansible.builtin.file:
-        src: "/{{ run.user }}/.bashrc"
+        path: "/{{ run.user }}/.bashrc"
         line: "{{ item }}"
       loop:
         - "export PATH=\"{{ rbenv.dir }} /bin:$PATH\""
