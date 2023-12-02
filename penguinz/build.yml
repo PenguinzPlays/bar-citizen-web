@@ -1,5 +1,5 @@
 ---
-- name: Install Needed Files
+- name: Install Needed Files and services
   hosts: all
   become: true
   become_user: root
@@ -27,6 +27,16 @@
           - software-properties-common 
           - libffi-dev
           - yarn
+          - nodejs
+          - rbenv
+    - name: add users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+        shell: /bin/bash
+        createhome: true
+      loop:
+        - "{{ run.user }}"
     - name: Make dirs
       ansible.builtin.file:
         path: "{{ item }}"
@@ -36,35 +46,30 @@
         - "{{ rbenv.dir }}"
         - /etc/apt/keyrings/
     - name: Setup user bashrc
-      ansible.builtin.file:
+      ansible.builtin.lineinfile:
         path: "/{{ run.user }}/.bashrc"
         line: "{{ item }}"
+        create: true
       loop:
         - "export PATH=\"{{ rbenv.dir }} /bin:$PATH\""
-        - eval \"$(rbenv init -)\"
+        - "eval \"$(rbenv init -)\""
     - name: Git Ruby
       ansible.builtin.git:
         repo: 'https://github.com/rbenv/rbenv.git'
         single_branch: yes
         version: master
         dest: "{{ rbenv.dir }}"
+    - name: Install Ruby Build
+      ansible.builtin.shell:
+        cmd: |
+          export PATH="{{ rbenv.dir }}/bin:$PATH"
+          rbenv install {{ ruby.version}}
+          source {{ rbenv.dir }}
+          rbenv global {{ rbenv.version}}
+          gem install bundler
+          bundle install
     - name: Create RBENV, Ruby, and Rails install script
       ansible.builtin.template:
         src: "rbenv.j2"
         dest: /usr/local/bin/rails-setup
         mode: "0555"
-    - name: De-armor node key
-      shell: 
-        chdir: /opt
-        cmd: |
-          curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-    - name: Adding node repo
-      ansible.builtin.apt_repository:
-        repo: "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_{{ node_version }}.x nodistro main"
-        filename: noderpm     
-    - name: Install Node and friends
-      ansible.builtin.apt:
-        state: latest
-        pkg: 
-          - nodejs
-          - nginx-light
