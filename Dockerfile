@@ -16,17 +16,15 @@ RUN /usr/local/bin/rbenv &&
 RUN yarn install
 
 # Ruby ARG / ENV
-ARG SECRET_KEY_BASE=defaultsecret
-ARG RAILS_ENV=production
-ARG RBENV_VERSION=1.2.0
-ARG RUBY_VERSION=
-ENV SECRET_KEY_BASE=defaultsecret
-ENV RAILS_ENV=production
+ARG SECRET_KEY_BASE="defaultsecret"
+ARG RAILS_ENV="production"
+ARG RBENV_VERSION="1.2.0"
+ENV SECRET_KEY_BASE="defaultsecret"
+ARG RAILS_VERSION="3.2.2"
 
 # Precompile assets in production. 
 # SECRET_KEY_BASE is needed for Rails to run in production for this step.
 RUN bundle exec rake assets:precompile
-
 
 user www-data
 

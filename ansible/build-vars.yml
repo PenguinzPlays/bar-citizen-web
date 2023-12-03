@@ -3,7 +3,7 @@ run:
 node_version: "{{ lookup('ansible.builtin.env', 'NODE_VERSIONY')|default('20', True) }}"
 node_key: "{{ lookup('ansible.builtin.env', 'NODE_KEY')|default('https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key', True) }}"
 rbenv:
-  dir: "{{ lookup('ansible.builtin.env', 'RBENV_DIR')|default('/usr/local/rbenv', True) }}"
+  dir: "{{ lookup('ansible.builtin.env', 'RBENV_VERSION')|default('/usr/local/rbenv', True) }}"
   version: "{{ lookup('ansible.builtin.env', 'RBENV_VERSION')|default('1.2.0', True) }}"
-ruby:
-  version: "{{ lookup('ansible.builtin.env', 'RUBY_VERSION')|default('2.7.1', True) }}"
+rails:
+  version: "{{ lookup('ansible.builtin.env', 'RAILS_VERSION')|default('3.2.2', True) }}"

@@ -35,12 +35,24 @@
           - patch
           - postgresql-client
           - rbenv
+          - ruby-dev
           - ruby-build
           - rustc
           - software-properties-common
           - uuid-dev
           - yarn
           - zlib1g-dev
+    - name: Libraries which depend on version
+      block:
+        - name: Install GDM6
+          ansible.builtin.apt:
+            pkg:
+              - libgdbm6
+      rescue:
+        - name: Install GDM5
+          ansible.builtin.apt:
+            pkg:
+              - libgdbm5
     - name: add users
       ansible.builtin.user:
         name: "{{ item }}"
@@ -66,17 +78,25 @@
       loop:
         - "export PATH=\"{{ rbenv.dir }} /bin:$PATH\""
         - "eval \"$(rbenv init -)\""
-    - name: Git Ruby
+    - name: Git RBENV
       ansible.builtin.git:
         repo: 'https://github.com/rbenv/rbenv.git'
         single_branch: yes
         version: "{{ rbenv.version }}"
         dest: "{{ rbenv.dir }}"
-    - name: Install Ruby Build
+    - name: Install Ruby 
       ansible.builtin.shell:
         cmd: |
           rbenv install {{ rbenv.version }}
           rbenv global {{ rbenv.version }}
+    - name: Installl Bundler Gem
+      ansible.builtin.shell:
+        cmd: |
           gem install bundler
-          bundle install rails
+          bundle install 
+    - name: Install Raills Gem
+      ansible.builtin.shell:
+        cmd: |
+          gem install rails -v {{ rails.version }}
+          
 
