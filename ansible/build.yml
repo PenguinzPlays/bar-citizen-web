@@ -11,24 +11,26 @@
       ansible.builtin.apt:
         state: latest
         pkg: 
-          - libpq-dev 
-          - curl 
-          - gnupg
-          - git-core 
-          - zlib1g-dev 
           - bison
-          - build-essential 
-          - libssl-dev 
-          - libreadline-dev 
-          - libyaml-dev 
-          - libxml2-dev 
-          - libxslt1-dev 
-          - libcurl4-openssl-dev 
-          - software-properties-common 
+          - build-essential
+          - curl
+          - git-core
+          - gnupg
+          - libcurl4-openssl-dev
           - libffi-dev
-          - yarn
+          - libpq-dev
+          - libreadline-dev
+          - libssl-dev
+          - libxml2-dev
+          - libxslt1-dev
+          - libyaml-dev
           - nodejs
+          - postgresql-client
           - rbenv
+          - ruby-build
+          - software-properties-common
+          - yarn
+          - zlib1g-dev
     - name: add users
       ansible.builtin.user:
         name: "{{ item }}"
@@ -62,14 +64,8 @@
     - name: Install Ruby Build
       ansible.builtin.shell:
         cmd: |
-          export PATH="{{ rbenv.dir }}/bin:$PATH"
-          rbenv install {{ ruby.version}}
-          source {{ rbenv.dir }}
-          rbenv global {{ rbenv.version}}
+          rbenv install {{ rbenv.version }}
+          rbenv global {{ rbenv.version }}
           gem install bundler
-          bundle install
-    - name: Create RBENV, Ruby, and Rails install script
-      ansible.builtin.template:
-        src: "rbenv.j2"
-        dest: /usr/local/bin/rails-setup
-        mode: "0555"
+          bundle install rails
+

@@ -1,7 +1,0 @@
-run:
-  user: www-data
-node_version: 20
-node_key: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
-rbenv:
-  dir: /usr/local/rbenv
-  version: 3.1.2
