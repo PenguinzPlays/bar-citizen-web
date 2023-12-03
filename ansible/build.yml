@@ -101,7 +101,6 @@
           rbenv install {{ ruby.version }}
           rbenv global {{ ruby.version }}
     - name: Installl Bundler Gem
-      become_user: "{{ run.user }}"
       ansible.builtin.shell:
         cmd: |
           gem install bundler
