@@ -3,7 +3,8 @@ run:
 node_version: "{{ lookup('ansible.builtin.env', 'NODE_VERSIONY')|default('20', True) }}"
 node_key: "{{ lookup('ansible.builtin.env', 'NODE_KEY')|default('https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key', True) }}"
 rbenv:
-  dir: "{{ lookup('ansible.builtin.env', 'RBENV_VERSION')|default('/usr/local/rbenv', True) }}"
+  dir: "{{ lookup('ansible.builtin.env', 'RBENV_VERSION')|default('~/.rbenv', True) }}"
   version: "{{ lookup('ansible.builtin.env', 'RBENV_VERSION')|default('1.2.0', True) }}"
+  buildVersion: "{{ lookup('ansible.builtin.env', 'RBENV_BUILDVERSION')|default('20231114', True) }}"
 rails:
   version: "{{ lookup('ansible.builtin.env', 'RAILS_VERSION')|default('3.2.2', True) }}"
