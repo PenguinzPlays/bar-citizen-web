@@ -375,7 +375,7 @@ class Binding {
                 passes = passes && filter({ name, value, event, element, controller });
             }
             else {
-                continue;
+
             }
         }
         return passes;
@@ -2515,7 +2515,7 @@ class Controller {
         return true;
     }
     static afterLoad(_identifier, _application) {
-        return;
+
     }
     get application() {
         return this.context.application;

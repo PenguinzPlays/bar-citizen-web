@@ -919,7 +919,7 @@ class Snapshot {
   get firstAutofocusableElement() {
     const inertDisabledOrHidden = "[inert], :disabled, [hidden], details:not([open]), dialog:not([open])";
     for (const element of this.element.querySelectorAll("[autofocus]")) {
-      if (element.closest(inertDisabledOrHidden) == null) return element; else continue;
+      if (element.closest(inertDisabledOrHidden) == null) return element; else ;
     }
     return null;
   }
@@ -1325,10 +1325,10 @@ class Renderer {
     return true;
   }
   get reloadReason() {
-    return;
+
   }
   prepareToRender() {
-    return;
+
   }
   finishRendering() {
     if (this.resolvingFunctions) {

@@ -18,7 +18,8 @@ RUN yarn install
 # Ruby ARG / ENV
 ARG SECRET_KEY_BASE=defaultsecret
 ARG RAILS_ENV=production
-ARG RBENV_VERSION=2.7.1
+ARG RBENV_VERSION=1.2.0
+ARG RUBY_VERSION=
 ENV SECRET_KEY_BASE=defaultsecret
 ENV RAILS_ENV=production
 

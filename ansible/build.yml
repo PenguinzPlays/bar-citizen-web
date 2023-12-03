@@ -10,25 +10,35 @@
     - name: Install Pre-Dependencies
       ansible.builtin.apt:
         state: latest
-        pkg: 
+        pkg:
+          - autoconf
           - bison
           - build-essential
           - curl
           - git-core
           - gnupg
           - libcurl4-openssl-dev
+          - libdb-dev
           - libffi-dev
+          - libgdbm-dev
+          - libgdbm6
+          - libgmp-dev
+          - libncurses5-dev
           - libpq-dev
           - libreadline-dev
+          - libreadline6-dev
           - libssl-dev
           - libxml2-dev
           - libxslt1-dev
           - libyaml-dev
           - nodejs
+          - patch
           - postgresql-client
           - rbenv
           - ruby-build
+          - rustc
           - software-properties-common
+          - uuid-dev
           - yarn
           - zlib1g-dev
     - name: add users
@@ -48,8 +58,9 @@
         - "{{ rbenv.dir }}"
         - /etc/apt/keyrings/
     - name: Setup user bashrc
+      become_user: "{{ run.user }}"
       ansible.builtin.lineinfile:
-        path: "/{{ run.user }}/.bashrc"
+        path: "~/.bashrc"
         line: "{{ item }}"
         create: true
       loop:
@@ -59,7 +70,7 @@
       ansible.builtin.git:
         repo: 'https://github.com/rbenv/rbenv.git'
         single_branch: yes
-        version: master
+        version: "{{ rbenv.version }}"
         dest: "{{ rbenv.dir }}"
     - name: Install Ruby Build
       ansible.builtin.shell:

@@ -1429,7 +1429,7 @@
         if (element.closest(inertDisabledOrHidden) == null)
           return element;
         else
-          continue;
+          ;
       }
       return null;
     }
@@ -1811,10 +1811,10 @@
       return true;
     }
     get reloadReason() {
-      return;
+
     }
     prepareToRender() {
-      return;
+
     }
     finishRendering() {
       if (this.resolvingFunctions) {
@@ -4862,7 +4862,7 @@
           const filter = actionDescriptorFilters[name];
           passes = passes && filter({ name, value, event, element, controller });
         } else {
-          continue;
+
         }
       }
       return passes;
@@ -6908,7 +6908,7 @@
       return true;
     }
     static afterLoad(_identifier, _application) {
-      return;
+
     }
     get application() {
       return this.context.application;
