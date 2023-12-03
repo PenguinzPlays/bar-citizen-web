@@ -9,6 +9,7 @@
   tasks:
     - name: Install Pre-Dependencies
       ansible.builtin.apt:
+        update_cache: true
         state: latest
         pkg:
           - autoconf
