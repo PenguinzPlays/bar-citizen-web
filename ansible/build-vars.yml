@@ -6,5 +6,7 @@ rbenv:
   dir: "{{ lookup('ansible.builtin.env', 'RBENV_VERSION')|default('~/.rbenv', True) }}"
   version: "{{ lookup('ansible.builtin.env', 'RBENV_VERSION')|default('1.2.0', True) }}"
   buildVersion: "{{ lookup('ansible.builtin.env', 'RBENV_BUILDVERSION')|default('20231114', True) }}"
+ruby:
+  version: "{{ lookup('ansible.builtin.env', 'RUBY_VERSION')|default('3.2.2', True) }}"
 rails:
-  version: "{{ lookup('ansible.builtin.env', 'RAILS_VERSION')|default('3.2.2', True) }}"
+  version: "{{ lookup('ansible.builtin.env', 'RAILS_VERSION')|default('7.0.4', True) }}"
